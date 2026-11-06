@@ -1,0 +1,16 @@
+{
+  "name": "abl-footer",
+  "version": "1.0.0",
+  "description": "The shared AppsByLuke product footer as a Declarative Shadow DOM custom element.",
+  "type": "module",
+  "license": "MIT",
+  "repository": "github:logical-luke/abl-footer",
+  "engines": { "node": ">=22" },
+  "exports": {
+    ".": "./src/index.js",
+    "./footer.css": "./assets/footer.css"
+  },
+  "bin": { "abl-footer": "bin/abl-footer.js" },
+  "files": ["src", "bin", "assets"],
+  "scripts": { "test": "node --test" }
+}
