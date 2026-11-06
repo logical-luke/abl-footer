@@ -19,7 +19,7 @@ renderFooter({
   year: 2026,                      // default: current year
   home: false,                     // true on appsbyluke.com: "AppsByLuke" linking to /
   labels: { privacy: 'Prywatność' },
-  assetBase: '/abl-footer',        // where footer.css is served
+  assetBase: '/abl-footer',        // where font.css and footer.css are served
 });
 ```
 
@@ -28,7 +28,7 @@ It returns a string. Only the given links render, always in the order privacy, t
 Copy the stylesheet and font into your public directory at build time:
 
 ```sh
-npx abl-footer copy public   # writes public/abl-footer/{footer.css,geist-latin-wght-normal.woff2,Geist-OFL.txt}
+npx abl-footer copy public   # writes public/abl-footer/{font.css,footer.css,geist-latin-wght-normal.woff2,Geist-OFL.txt}
 ```
 
 ## Colours
@@ -86,7 +86,7 @@ Paste the fragment into each page. Flags: `--privacy --terms --refund --contact 
 
 ## CSP
 
-Styles load through `<link>`, so `style-src 'self'` holds. The output has no `style` attribute and no `<style>` element, and the footer needs no JavaScript. Declarative Shadow DOM needs Chrome 111, Safari 16.4 or Firefox 123. The stylesheet is linked in the document as well as inside the shadow root because browsers do not register `@font-face` from a shadow root.
+Styles load through `<link>`, so `style-src 'self'` holds. The output has no `style` attribute and no `<style>` element, and the footer needs no JavaScript. Declarative Shadow DOM needs Chrome 111, Safari 16.4 or Firefox 123. `font.css` is linked in the document because browsers do not register `@font-face` from a shadow root. It holds only the font and the `abl-footer` element rule, so it never touches the host's own elements; every layout rule lives in `footer.css`, which only the shadow root loads.
 
 ## Font
 

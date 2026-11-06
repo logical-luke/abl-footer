@@ -5,7 +5,7 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { SLOT_ORDER, renderFooter } from '../src/index.js';
 
-const ASSETS = ['footer.css', 'geist-latin-wght-normal.woff2', 'Geist-OFL.txt'];
+const ASSETS = ['font.css', 'footer.css', 'geist-latin-wght-normal.woff2', 'Geist-OFL.txt'];
 const USAGE = `Usage:
   abl-footer copy <publicDir>
   abl-footer html --product <name> [--privacy url] [--terms url] [--refund url] [--contact url] [--status url] [--year n] [--home]`;

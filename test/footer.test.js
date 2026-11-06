@@ -79,7 +79,7 @@ test('no inline styles', () => {
 
 test('asset base and structure', () => {
   const html = renderFooter({ product: 'X', assetBase: '/a&b' });
-  assert.ok(html.startsWith('<link rel="stylesheet" href="/a&amp;b/footer.css"><abl-footer><template shadowrootmode="open"><link rel="stylesheet" href="/a&amp;b/footer.css"><footer class="foot">'));
+  assert.ok(html.startsWith('<link rel="stylesheet" href="/a&amp;b/font.css"><abl-footer><template shadowrootmode="open"><link rel="stylesheet" href="/a&amp;b/footer.css"><footer class="foot">'));
   assert.ok(html.endsWith('</footer></template></abl-footer>'));
 });
 
@@ -104,14 +104,21 @@ test('cli rejects bad input', () => {
   }
 });
 
-test('cli copy writes the three files', () => {
+test('cli copy writes the four files', () => {
   const dir = mkdtempSync(join(tmpdir(), 'abl-footer-'));
   try {
     execFileSync(process.execPath, [BIN, 'copy', join(dir, 'public')]);
-    for (const name of ['footer.css', 'geist-latin-wght-normal.woff2', 'Geist-OFL.txt']) {
+    for (const name of ['font.css', 'footer.css', 'geist-latin-wght-normal.woff2', 'Geist-OFL.txt']) {
       assert.ok(existsSync(join(dir, 'public', 'abl-footer', name)), name);
     }
   } finally {
     rmSync(dir, { recursive: true });
   }
+});
+
+test('the document stylesheet holds only the font and the host element rule', async () => {
+  const { readFile } = await import('node:fs/promises');
+  const doc = await readFile(new URL('../assets/font.css', import.meta.url), 'utf8');
+  const selectors = doc.replace(/@font-face\s*{[^}]*}/g, '').match(/[^{}]+(?={)/g).map((s) => s.trim());
+  assert.deepEqual(selectors, ['abl-footer']);
 });

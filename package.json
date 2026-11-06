@@ -8,7 +8,8 @@
   "engines": { "node": ">=22" },
   "exports": {
     ".": "./src/index.js",
-    "./footer.css": "./assets/footer.css"
+    "./footer.css": "./assets/footer.css",
+    "./font.css": "./assets/font.css"
   },
   "bin": { "abl-footer": "bin/abl-footer.js" },
   "files": ["src", "bin", "assets"],

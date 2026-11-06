@@ -45,7 +45,7 @@ export function renderFooter({
   if (typeof product !== 'string' || product.trim() === '') {
     throw new Error('renderFooter: product is required');
   }
-  const css = `${esc(assetBase)}/footer.css`;
+  const base = esc(assetBase);
   const items = SLOT_ORDER.filter((key) => links[key])
     .map((key) => `<li><a href="${esc(links[key])}">${esc(labels[key] ?? DEFAULT_LABELS[key])}</a></li>`)
     .join('');
@@ -53,8 +53,8 @@ export function renderFooter({
     ? `<a class="made" href="/">${MARK}AppsByLuke</a>`
     : `<a class="made" href="https://appsbyluke.com">${MARK}Made by AppsByLuke</a>`;
   return (
-    `<link rel="stylesheet" href="${css}">` +
-    `<abl-footer><template shadowrootmode="open"><link rel="stylesheet" href="${css}">` +
+    `<link rel="stylesheet" href="${base}/font.css">` +
+    `<abl-footer><template shadowrootmode="open"><link rel="stylesheet" href="${base}/footer.css">` +
     `<footer class="foot">${brand}<ul class="links">${items}</ul>` +
     `<small class="copy">© ${esc(year)} ${esc(product)}</small></footer></template></abl-footer>`
   );
